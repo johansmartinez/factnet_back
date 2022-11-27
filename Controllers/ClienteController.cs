@@ -22,6 +22,11 @@ public class ClienteController: ControllerBase
         return Ok(clienteService.Get());
     }
 
+    [HttpGet("{dni}")]
+    public IActionResult GetUser(string dni){
+        return Ok(clienteService.Get().Where(c=>c.dni==dni));
+    }
+
     [HttpPost]
     public IActionResult Post([FromBody] Cliente cliente)
     {

@@ -41,7 +41,7 @@ public class ClienteService: IClienteService
             clienteActual.apellidos = cliente.apellidos;
             clienteActual.fechaNacimiento = cliente.fechaNacimiento;
             clienteActual.direccion = cliente.direccion;
-            await context.SaveChangesAsync();
+            context.SaveChanges();
         }
         context.SaveChanges();
     }

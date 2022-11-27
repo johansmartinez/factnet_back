@@ -11,6 +11,6 @@ public class Cliente
     public string direccion {get;set;}
 
     [JsonIgnore]
-    public virtual ICollection<Factura> Facturas {get;set;}
+    public virtual ICollection<Factura>? Facturas {get;set;}
 
 }
