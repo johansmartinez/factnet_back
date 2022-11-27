@@ -1,9 +1,11 @@
 using Microsoft.AspNetCore.Mvc;
 using factnet_back.Services;
 using factnet_back.Models;
+using Microsoft.AspNetCore.Cors;
 
 namespace factnet_back.Controllers;
 
+[EnableCors()]
 [ApiController]
 [Route("venta")]
 public class VentaController: ControllerBase
