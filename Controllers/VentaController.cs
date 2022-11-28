@@ -23,7 +23,7 @@ public class VentaController: ControllerBase
     }
 
     [HttpPost]
-    public IActionResult Post([FromBody] Ventas ventas)
+    public IActionResult Post([FromBody] VentasCreate[] ventas)
     {
         try
         {

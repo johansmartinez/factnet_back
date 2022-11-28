@@ -60,7 +60,7 @@ public class FacturaService: IFacturaService
         }
     }
 
-public IEnumerable<Object> GetSalesMonth(int month, int year)
+    public IEnumerable<Object> GetSalesMonth(int month, int year)
     {
         using (var ctx= context)
         {
@@ -170,10 +170,17 @@ public IEnumerable<Object> GetSalesMonth(int month, int year)
         }
     }
 
-    public async Task Save(Factura factura)
+    public Guid Save(FacturaCreate factura)
     {
-        context.Facturas.Add(factura);
-        await context.SaveChangesAsync();
+        var id=Guid.NewGuid();
+        var fact=new Factura{
+            id=id,
+            clienteDni=factura.clienteDni,
+            facturacion=DateTime.Now
+        };
+        context.Facturas.Add(fact);
+        context.SaveChanges();
+        return id;
     }
 
     public async Task Update(Guid id, Factura factura)
@@ -193,7 +200,7 @@ public interface IFacturaService{
     IEnumerable<Object> GetSales();
     IEnumerable<Object> GetSale(Guid id);
     IEnumerable<Object> GetSalesMonth(int month, int year);
-    Task Save(Factura factura);
+    Guid Save(FacturaCreate factura);
     Task Update(Guid id,Factura factura);
     Task Delete(Guid id);
 }

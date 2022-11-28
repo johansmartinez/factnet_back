@@ -40,9 +40,19 @@ public class VentaService: IVentaService
         }
     }
 
-    public async Task Save(Ventas ventas)
+    public async Task Save(VentasCreate[] ventas)
     {
-        context.Ventas.Add(ventas);
+        foreach (var v in ventas)
+        {
+            var temp=new Ventas{
+                id=Guid.NewGuid(),
+                unidades=v.unidades,
+                productoId=v.productoId,
+                facturaId=v.facturaId
+            };
+            context.Ventas.Add(temp);
+            await context.SaveChangesAsync();
+        }
         await context.SaveChangesAsync();
     }
 
@@ -60,7 +70,7 @@ public class VentaService: IVentaService
 
 public interface IVentaService{
     IEnumerable<Object> Get();
-    Task Save(Ventas ventas);
+    Task Save(VentasCreate[] ventas);
     Task Update(Guid id,Ventas ventas);
     Task Delete(Guid id);
 }

@@ -38,13 +38,11 @@ public class FacturaController: ControllerBase
     }
 
     [HttpPost]
-    public IActionResult Post([FromBody] Factura factura)
+    public IActionResult Post([FromBody] FacturaCreate factura)
     {
         try
         {
-
-            facturaService.Save(factura);
-            return Ok();
+            return Ok(facturaService.Save(factura));
         }
         catch (System.Exception)
         {
