@@ -17,7 +17,7 @@ public class ProductoService: IProductoService
         if (productoActual != null)
         {
             context.Remove(productoActual);
-            await context.SaveChangesAsync();
+            context.SaveChanges();
         }
     }
 
@@ -26,20 +26,27 @@ public class ProductoService: IProductoService
         using (var ctx= context)
         {
             var query= from pd in ctx.Productos
-                        join pv in ctx.Proveedores on pd.proveedorId equals pv.proveedorId
+                        join pv in ctx.Proveedores on pd.proveedorId equals pv.proveedorId into j1
+                        from jResOne in j1.DefaultIfEmpty()
                         select new ProductoDTO{
                             id= pd.id,
                             nombre= pd.nombre,
                             precioUnitario= pd.precioUnitario,
                             proveedorId=pd.proveedorId,
-                            proveedorNombre=pv.nombre
+                            proveedorNombre=jResOne.nombre
                         };
             return query.ToList();
         }
     }
 
+    public IEnumerable<Producto> GetContext()
+    {
+        return context.Productos;
+    }
+
     public async Task Save(Producto producto)
     {
+        producto.id=Guid.NewGuid();
         context.Productos.Add(producto);
         await context.SaveChangesAsync();
     }
@@ -52,7 +59,7 @@ public class ProductoService: IProductoService
             productoActual.nombre = producto.nombre;
             productoActual.precioUnitario = producto.precioUnitario;
             productoActual.proveedorId = producto.proveedorId;
-            await context.SaveChangesAsync();
+            context.SaveChanges();
         }
         context.SaveChanges();
     }
@@ -60,6 +67,7 @@ public class ProductoService: IProductoService
 
 public interface IProductoService{
     IEnumerable<Object> Get();
+    IEnumerable<Producto> GetContext();
     Task Save(Producto producto);
     Task Update(Guid id,Producto producto);
     Task Delete(Guid id);

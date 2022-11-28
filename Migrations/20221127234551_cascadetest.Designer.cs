@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using factnet_back;
 
@@ -11,9 +12,10 @@ using factnet_back;
 namespace factnet_back.Migrations
 {
     [DbContext(typeof(FacturationContext))]
-    partial class FacturationContextModelSnapshot : ModelSnapshot
+    [Migration("20221127234551_cascadetest")]
+    partial class cascadetest
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -103,6 +105,7 @@ namespace factnet_back.Migrations
                         .HasColumnType("int");
 
                     b.Property<Guid?>("proveedorId")
+                        .IsRequired()
                         .HasColumnType("uniqueidentifier");
 
                     b.HasKey("id");
@@ -193,7 +196,8 @@ namespace factnet_back.Migrations
                     b.HasOne("factnet_back.Models.Proveedor", "Proveedor")
                         .WithMany("Productos")
                         .HasForeignKey("proveedorId")
-                        .OnDelete(DeleteBehavior.SetNull);
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.Navigation("Proveedor");
                 });

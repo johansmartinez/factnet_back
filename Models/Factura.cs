@@ -8,9 +8,9 @@ public class Factura
     public DateTime facturacion {get;set;}
     public string clienteDni {get;set;}
     [JsonIgnore]
-    public virtual Cliente Cliente {get;set;}
+    public virtual Cliente? Cliente {get;set;}
 
     [JsonIgnore]
-    public virtual ICollection<Ventas> Ventas {get;set;}
+    public virtual ICollection<Ventas>? Ventas {get;set;}
 
 }

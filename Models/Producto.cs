@@ -11,9 +11,9 @@ public class Producto
 
     [ForeignKey("Proveedor")]
     public Guid? proveedorId {get;set;}
-    public virtual Proveedor Proveedor {get;set;}
+    public virtual Proveedor? Proveedor {get;set;}
 
     [JsonIgnore]
-    public virtual ICollection<Ventas> Ventas {get;set;}
+    public virtual ICollection<Ventas>? Ventas {get;set;}
 
 }

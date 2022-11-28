@@ -22,6 +22,11 @@ public class ProductoController: ControllerBase
         return Ok(productoService.Get());
     }
 
+    [HttpGet("{id}")]
+    public IActionResult GetId(Guid id){
+        return Ok(productoService.GetContext().Where(p=>p.id==id));
+    }
+
     [HttpPost]
     public IActionResult Post([FromBody] Producto producto)
     {

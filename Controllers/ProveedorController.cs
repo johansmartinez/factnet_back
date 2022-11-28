@@ -22,6 +22,10 @@ public class ProveedorController: ControllerBase
         return Ok(proveedorService.Get());
     }
 
+    [HttpGet("{id}")]
+    public IActionResult GetId(Guid id){
+        return Ok(proveedorService.Get().Where(p=>p.proveedorId==id));
+    }
     [HttpPost]
     public IActionResult Post([FromBody] Proveedor proveedor)
     {

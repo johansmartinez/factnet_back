@@ -53,7 +53,7 @@ public class FacturationContext: DbContext
             Productos.Property(p=> p.nombre).IsRequired().HasMaxLength(200);
             Productos.Property(p=>p.precioUnitario).IsRequired();
             Productos.HasData(productoInit);
-            Productos.HasOne(p=>p.Proveedor).WithMany(p=>p.Productos).HasForeignKey(p=>p.proveedorId).HasPrincipalKey(p=>p.proveedorId);
+            Productos.HasOne(p=>p.Proveedor).WithMany(p=>p.Productos).HasForeignKey(p=>p.proveedorId).HasPrincipalKey(p=>p.proveedorId).OnDelete(DeleteBehavior.SetNull);
         });
 
         List<Factura> facturasInit= new List<Factura>();
@@ -64,7 +64,7 @@ public class FacturationContext: DbContext
             Factura.ToTable("FACTURAS");
             Factura.HasKey(p=>p.id);
             Factura.Property(p=> p.facturacion).IsRequired();
-            Factura.HasOne(p=> p.Cliente).WithMany(p=>p.Facturas).HasForeignKey(p=>p.clienteDni).HasPrincipalKey(p=>p.dni);
+            Factura.HasOne(p=> p.Cliente).WithMany(p=>p.Facturas).HasForeignKey(p=>p.clienteDni).HasPrincipalKey(p=>p.dni).OnDelete(DeleteBehavior.Cascade);
             Factura.HasData(facturasInit);
         });
 

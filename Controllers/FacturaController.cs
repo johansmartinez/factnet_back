@@ -22,11 +22,27 @@ public class FacturaController: ControllerBase
         return Ok(facturaService.Get());
     }
 
+    [HttpGet("ventas")]
+    public IActionResult GetSales(){
+        return Ok(facturaService.GetSales());
+    }
+
+    [HttpGet("ventas/{id}")]
+    public IActionResult GetSale(Guid id){
+        return Ok(facturaService.GetSale(id));
+    }
+
+    [HttpGet("ventas/filtro/{month}/{year}")]
+    public IActionResult GetSaleMonth(int month, int year){
+        return Ok(facturaService.GetSalesMonth(month,year));
+    }
+
     [HttpPost]
     public IActionResult Post([FromBody] Factura factura)
     {
         try
         {
+
             facturaService.Save(factura);
             return Ok();
         }

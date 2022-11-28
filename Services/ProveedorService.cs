@@ -17,7 +17,7 @@ public class ProveedorService: IProveedorService
         if (proveedorActual != null)
         {
             context.Remove(proveedorActual);
-            await context.SaveChangesAsync();
+            context.SaveChanges();
         }
     }
 
@@ -28,6 +28,7 @@ public class ProveedorService: IProveedorService
 
     public async Task Save(Proveedor proveedor)
     {
+        proveedor.proveedorId=Guid.NewGuid();
         context.Proveedores.Add(proveedor);
         await context.SaveChangesAsync();
     }
@@ -38,7 +39,7 @@ public class ProveedorService: IProveedorService
         if (proveedorActual != null)
         {
             proveedorActual.nombre = proveedor.nombre;
-            await context.SaveChangesAsync();
+            context.SaveChanges();
         }
         context.SaveChanges();
     }

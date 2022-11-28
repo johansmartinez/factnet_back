@@ -8,6 +8,6 @@ public class Proveedor
     public string nombre {get;set;}
 
     [JsonIgnore]
-    public virtual ICollection<Producto> Productos {get;set;}
+    public virtual ICollection<Producto>? Productos {get;set;}
 
 }

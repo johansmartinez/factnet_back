@@ -10,6 +10,7 @@ public class FacturaDTO
     
     public string clienteNombre {get;set;}
     public string clienteApellido {get;set;}
+    public double total {get;set;}
     [JsonIgnore]
     public virtual ICollection<Ventas> Ventas {get;set;}
 
